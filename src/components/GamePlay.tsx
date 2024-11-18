@@ -15,7 +15,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
   const handleButtonClick = (value: string) => {
     if (value === 'Masukkan') {
       if (parseInt(guess, 10) === questions[currentIndex]) {
-        setMessage('Tebakan benar! Lanjut ke angka berikutnya.');
+        setMessage('Kunci ke ' + (currentIndex + 1) + ' terbuka!');
         if (currentIndex + 1 === questions.length) {
           setIsFinished(true); // Tandai permainan selesai
         } else {
@@ -23,7 +23,7 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
         }
         setGuess('');
       } else {
-        setMessage('Tebakan salah! Coba lagi.');
+        setMessage('Pin salah! Coba lagi.');
       }
     } else if (value === 'Hapus') {
       setGuess('');
@@ -34,36 +34,56 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
 
   if (isFinished) {
     return (
-      <div className="gameplay-container">
-        <h1 style={{ color: '#4CAF50' }}>Selamat!</h1>
-        <p style={{ fontSize: '1.5rem', color: '#FF9800' }}>
-          Anda telah membuka semua kunci dan berhasil menyelamatkan monkey!
-        </p>
-        <button
-          onClick={onRestart}
-          style={{
-            marginTop: '20px',
-            padding: '10px 20px',
-            fontSize: '1rem',
-            border: 'none',
-            borderRadius: '8px',
-            backgroundColor: '#FF5722',
-            color: 'white',
-            cursor: 'pointer',
-          }}
+      <div className="win-container">
+        <div
+          className="konten"
+          style={{ textAlign: 'center', padding: '20px' }}
         >
-          Ulangi Permainan
-        </button>
+          <h2 style={{ color: '#4CAF50' }}>Selamat!</h2>
+          <p style={{ fontSize: '1.5rem', color: '#FF9800' }}>
+            Anda telah membuka semua kunci dan berhasil menyelamatkan Mouse!
+          </p>
+          <button
+            onClick={onRestart}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              fontSize: '1rem',
+              border: 'none',
+              borderRadius: '8px',
+              backgroundColor: '#FF5722',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
+            Ulangi Permainan
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="gameplay-container">
-      <h2 style={{ color: '#FF5722' }}>Buka Kunci ke-{currentIndex + 1}</h2>
-      <div className="display">{guess}</div>
-      <div className="keypad">
-        {[...Array(10).keys()].map((num) => (
+    <div
+      className="gameplay-container"
+      style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}
+    >
+      <h1 style={{ textAlign: 'center', color: '#fff' }}>
+        Save The Mouse!{' '}
+        <div style={{ fontSize: '12px' }}>by Yogiswara Gheartha</div>
+      </h1>
+
+      <div className="konten">
+        <div>
+          <h3 style={{ color: '#FF5722' }}>
+            Buka Kunci ke-{currentIndex + 1}
+            <div style={{ fontSize: '12px' }}>
+              Ada {questions.length} kunci yang harus dibuka!{' '}
+            </div>
+          </h3>
+          <div className="display">{guess}</div>
+          <div className="keypad">
+            {/* {[...Array(10).keys()].map((num) => (
           <button
             key={num}
             onClick={() => handleButtonClick(num.toString())}
@@ -71,25 +91,34 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
           >
             {num}
           </button>
-        ))}
-        <button
-          onClick={() => handleButtonClick('Hapus')}
-          className="button special"
-          style={{ fontSize: '17px' }}
-        >
-          Hapus
-        </button>
-        <button
-          onClick={() => handleButtonClick('Masukkan')}
-          className="button special"
-          style={{ fontSize: '17px', backgroundColor: 'green' }}
-        >
-          Konfirm!
-        </button>
+        ))} */}
+            {Array.from({ length: 10 }, (_, num) => (
+              <button
+                key={num}
+                onClick={() => handleButtonClick(num.toString())}
+                className="button"
+              >
+                {num}
+              </button>
+            ))}
+            <button
+              onClick={() => handleButtonClick('Hapus')}
+              className="button special"
+              style={{ fontSize: '17px' }}
+            >
+              Hapus
+            </button>
+            <button
+              onClick={() => handleButtonClick('Masukkan')}
+              className="button special"
+              style={{ fontSize: '17px', backgroundColor: 'green' }}
+            >
+              Konfirm!
+            </button>
+          </div>
+          <p style={{ color: '#FF9800' }}>{message}</p>
+        </div>
       </div>
-      <p style={{ color: '#FF9800' }}>{message}</p>
-      <p>Ada {questions.length} kunci yang harus dibuka!</p>
-      <p style={{ fontSize: '12px' }}>by Yogiswara Gheartha</p>
     </div>
   );
 };
