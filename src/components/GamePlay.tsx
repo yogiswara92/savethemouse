@@ -1,142 +1,162 @@
-import React, { useState } from 'react';
-import './GamePlay.css';
-
-interface GamePlayProps {
-  questions: number[];
-  onRestart: () => void;
+body {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 }
 
-const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [guess, setGuess] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
-  const [isFinished, setIsFinished] = useState<boolean>(false);
+.display {
+  width: 220px;
+  height: 60px;
+  margin: 10px auto;
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  background-color: #fffbcc;
+  line-height: 60px;
+  color: #ff5722;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  const handleButtonClick = (value: string) => {
-    if (value === 'Masukkan') {
-      if (parseInt(guess, 10) === questions[currentIndex]) {
-        setMessage('Kunci ke ' + (currentIndex + 1) + ' terbuka!');
-        if (currentIndex + 1 === questions.length) {
-          setIsFinished(true); // Tandai permainan selesai
-        } else {
-          setCurrentIndex(currentIndex + 1);
-        }
-        setGuess('');
-      } else {
-        setMessage('Pin salah! Coba lagi.');
-      }
-    } else if (value === 'Hapus') {
-      setGuess('');
-    } else {
-      setGuess(guess + value);
-    }
-  };
+.konten {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20;
+  border-radius: 10px;
+  width: 300px;
+}
 
-  if (isFinished) {
-    return (
-      <div
-        className="win-container"
-        style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}
-      >
-        <div
-          className="konten"
-          style={{ textAlign: 'center', padding: '20px' }}
-        >
-          <h2 style={{ color: '#4CAF50' }}>Selamat!</h2>
-          <p style={{ fontSize: '1.5rem', color: '#FF9800' }}>
-            Anda telah membuka semua kunci dan berhasil menyelamatkan Mouse!
-          </p>
-          <button
-            onClick={onRestart}
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              fontSize: '1rem',
-              border: 'none',
-              borderRadius: '8px',
-              backgroundColor: '#FF5722',
-              color: 'white',
-              cursor: 'pointer',
-            }}
-          >
-            Ulangi Permainan
-          </button>
-        </div>
-      </div>
-    );
-  }
+.gameplay-container {
+  position: relative; /* Penting untuk parent element */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white; /* Warna teks putih agar kontras */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Tambahkan bayangan pada teks */
+}
 
-  return (
-    <div
-      className="gameplay-container"
-      style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}
-    >
-      <h1 style={{ textAlign: 'center', color: '#fff' }}>
-        Save The Mouse!{' '}
-        <div style={{ fontSize: '12px' }}>by Yogiswara Gheartha</div>
-      </h1>
+.gameplay-container::before {
+  content: '';
+  position: absolute;
+  top: -10;
+  left: -10;
+  width: 110%;
+  height: 110%;
+  background-image: url('../assets/tikus-dipenjara.jpg'); /* Path ke gambar */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* opacity:0.8; */
+  z-index: -1; /* Letakkan gambar di belakang konten */
+}
 
-      <div className="konten">
-        <div>
-          <h3 style={{ color: '#FF5722' }}>
-            Buka Kunci ke-{currentIndex + 1}
-            <div style={{ fontSize: '12px' }}>
-              Ada {questions.length} kunci yang harus dibuka!{' '}
-            </div>
-            {Array.from({ length: currentIndex }, (num) => (
-              <i
-                style={{ fontSize: '12px', margin: '1px', color: 'green' }}
-                className="fas fa-lock-open"
-              ></i>
-            ))}
-            {Array.from({ length: questions.length - currentIndex }, (num) => (
-              <i
-                style={{ fontSize: '12px', margin: '1px' }}
-                className="fas fa-lock"
-              ></i>
-            ))}
-          </h3>
+.gameplay-container h2 {
+  font-size: 2rem; /* Ukuran teks judul */
+  color: #ffa500; /* Warna teks lebih terang untuk kontras */
+  margin-bottom: 20px;
+}
 
-          <div className="display">{guess}</div>
-          <div className="keypad">
-            {/* {[...Array(10).keys()].map((num) => (
-          <button
-            key={num}
-            onClick={() => handleButtonClick(num.toString())}
-            className="button"
-          >
-            {num}
-          </button>
-        ))} */}
-            {Array.from({ length: 10 }, (_, num) => (
-              <button
-                key={num}
-                onClick={() => handleButtonClick(num.toString())}
-                className="button"
-              >
-                {num}
-              </button>
-            ))}
-            <button
-              onClick={() => handleButtonClick('Hapus')}
-              className="button special"
-              style={{ fontSize: '17px' }}
-            >
-              Hapus
-            </button>
-            <button
-              onClick={() => handleButtonClick('Masukkan')}
-              className="button special"
-              style={{ fontSize: '17px', backgroundColor: 'green' }}
-            >
-              Konfirm!
-            </button>
-          </div>
-          <p style={{ color: '#FF9800' }}>{message}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+.gameplay-container p {
+  font-size: 1.2rem; /* Ukuran teks deskripsi */
+}
 
-export default GamePlay;
+.win-container {
+  position: relative; /* Penting untuk parent element */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white; /* Warna teks putih agar kontras */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Tambahkan bayangan pada teks */
+}
+
+.win-container::before {
+  content: '';
+  position: absolute;
+  top: -10;
+  left: -10;
+  width: 110%;
+  height: 110%;
+  background-image: url('../assets/tikus-bebas.jpg'); /* Path ke gambar */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* opacity:0.8; */
+  z-index: -1; /* Letakkan gambar di belakang konten */
+}
+
+.win-container h2 {
+  font-size: 2rem; /* Ukuran teks judul */
+  color: #ffa500; /* Warna teks lebih terang untuk kontras */
+  margin-bottom: 20px;
+}
+
+.win-container p {
+  font-size: 1.2rem; /* Ukuran teks deskripsi */
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.button {
+  font-size: 1.4rem;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #8bc34a;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  width: 80px;
+}
+
+.button:hover {
+  background-color: #7cb342;
+  transform: scale(1.1);
+}
+
+.button:active {
+  background-color: #689f38;
+}
+
+.special {
+  background-color: #ff5722;
+}
+
+.special:hover {
+  background-color: #e64a19;
+}
+
+.special:active {
+  background-color: #d84315;
+}
+
+h2 {
+  color: white; /* Warna teks putih */
+  padding: 10px 20px; /* Jarak di sekitar teks */
+  border-radius: 8px; /* Membuat sudut bulat */
+  text-shadow: none; /* Hilangkan bayangan */
+}
+h3 {
+  color: white; /* Warna teks putih */
+  padding: 10px 20px; /* Jarak di sekitar teks */
+  border-radius: 8px; /* Membuat sudut bulat */
+  text-shadow: none; /* Hilangkan bayangan */
+  text-align: center;
+}
+p {
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  color: rgb(0, 0, 0);
+  padding: 5px 15px;
+  /* padding-left: 25; */
+  border-radius: 8px;
+  text-shadow: none;
+  text-align: center;
+}
