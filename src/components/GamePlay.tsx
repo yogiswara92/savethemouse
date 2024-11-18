@@ -34,8 +34,10 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
 
   if (isFinished) {
     return (
-      <div className="win-container" 
-        style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
+      <div
+        className="win-container"
+        style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}
+      >
         <div
           className="konten"
           style={{ textAlign: 'center', padding: '20px' }}
@@ -81,7 +83,20 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
             <div style={{ fontSize: '12px' }}>
               Ada {questions.length} kunci yang harus dibuka!{' '}
             </div>
+            {Array.from({ length: currentIndex }, (num) => (
+              <i
+                style={{ fontSize: '12px', margin: '1px', color: 'green' }}
+                className="fas fa-lock-open"
+              ></i>
+            ))}
+            {Array.from({ length: questions.length - currentIndex }, (num) => (
+              <i
+                style={{ fontSize: '12px', margin: '1px' }}
+                className="fas fa-lock"
+              ></i>
+            ))}
           </h3>
+
           <div className="display">{guess}</div>
           <div className="keypad">
             {/* {[...Array(10).keys()].map((num) => (
