@@ -34,7 +34,8 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
 
   if (isFinished) {
     return (
-      <div className="win-container">
+      <div className="win-container" 
+        style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
         <div
           className="konten"
           style={{ textAlign: 'center', padding: '20px' }}
