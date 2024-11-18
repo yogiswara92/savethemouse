@@ -123,15 +123,22 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
             {num}
           </button>
         ))} */}
-            {Array.from({ length: 10 }, (_, num) => (
+            {Array.from({ length: 9 }, (_, num) => (
               <button
-                key={num}
-                onClick={() => handleButtonClick(num.toString())}
+                key={num + 1}
+                onClick={() => handleButtonClick((num + 1).toString())}
                 className="button"
               >
-                {num}
+                {num + 1}
               </button>
             ))}
+            <button
+              key={0}
+              onClick={() => handleButtonClick((0).toString())}
+              className="button"
+            >
+              0
+            </button>
             <button
               onClick={() => handleButtonClick('Hapus')}
               className="button special"
@@ -151,11 +158,19 @@ const GamePlay: React.FC<GamePlayProps> = ({ questions, onRestart }) => {
           <p style={{ color: '#FF9800' }}>
             {message}
             <div style={{ fontSize: '12px' }}>
-              {currentIndex === 0 ? '' : 'Pin: '}
-
+              {/* {currentIndex === 0 ? '' : 'Pin: '} */}
+              Pin:{' '}
               {Array.from(
                 { length: currentIndex },
                 (_, no) => questions[no] + ', '
+              )}
+              {Array.from(
+                { length: questions.length - currentIndex },
+                (_, nopin) => (
+                  <b style={{ color: '#FF5722' }}>
+                    ?{nopin < questions.length - currentIndex - 1 ? ', ' : ''}
+                  </b>
+                )
               )}
             </div>
           </p>
