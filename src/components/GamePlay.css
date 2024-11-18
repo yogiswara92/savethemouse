@@ -16,6 +16,13 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.konten {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20;
+  border-radius: 10px;
+  width: 300px;
+}
+
 .gameplay-container {
   position: relative; /* Penting untuk parent element */
   height: 100vh;
@@ -31,10 +38,10 @@ body {
 .gameplay-container::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -10;
+  left: -10;
+  width: 110%;
+  height: 110%;
   background-image: url('../assets/tikus-dipenjara.jpg'); /* Path ke gambar */
   background-size: cover;
   background-position: center;
@@ -50,6 +57,43 @@ body {
 }
 
 .gameplay-container p {
+  font-size: 1.2rem; /* Ukuran teks deskripsi */
+}
+
+.win-container {
+  position: relative; /* Penting untuk parent element */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white; /* Warna teks putih agar kontras */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Tambahkan bayangan pada teks */
+}
+
+.win-container::before {
+  content: '';
+  position: absolute;
+  top: -10;
+  left: -10;
+  width: 110%;
+  height: 110%;
+  background-image: url('../assets/tikus-bebas.jpg'); /* Path ke gambar */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* opacity:0.8; */
+  z-index: -1; /* Letakkan gambar di belakang konten */
+}
+
+.win-container h2 {
+  font-size: 2rem; /* Ukuran teks judul */
+  color: #ffa500; /* Warna teks lebih terang untuk kontras */
+  margin-bottom: 20px;
+}
+
+.win-container p {
   font-size: 1.2rem; /* Ukuran teks deskripsi */
 }
 
@@ -95,16 +139,24 @@ body {
 }
 
 h2 {
-  background-color: rgba(255, 255, 255, 1); /* Warna hitam semi-transparan */
   color: white; /* Warna teks putih */
   padding: 10px 20px; /* Jarak di sekitar teks */
   border-radius: 8px; /* Membuat sudut bulat */
   text-shadow: none; /* Hilangkan bayangan */
 }
-
+h3 {
+  color: white; /* Warna teks putih */
+  padding: 10px 20px; /* Jarak di sekitar teks */
+  border-radius: 8px; /* Membuat sudut bulat */
+  text-shadow: none; /* Hilangkan bayangan */
+  text-align: center;
+}
 p {
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  color: rgb(0, 0, 0);
   padding: 5px 15px;
+  /* padding-left: 25; */
   border-radius: 8px;
+  text-shadow: none;
+  text-align: center;
 }
