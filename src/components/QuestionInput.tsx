@@ -25,16 +25,20 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ onSubmitQuestions }) => {
         Save The Mouse!{' '}
         <div style={{ fontSize: '12px' }}>by Yogiswara Gheartha</div>
       </h1>
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <h2>Input Numbers</h2>
+      <div style={{ textAlign: 'center', marginTop: '80px' }}>
         <input
           type="number"
           value={currentNumber}
           onChange={(e) => setCurrentNumber(e.target.value)}
           placeholder="Enter a number"
+          style={{ height: '40px' }}
         />
-        <button onClick={handleAddNumber}>Add Number</button>
-        <button onClick={handleFinishInput}>Finish</button>
+        <button onClick={handleAddNumber} style={{ height: '40px' }}>
+          Add Number
+        </button>
+        <button onClick={handleFinishInput} style={{ height: '40px' }}>
+          Finish
+        </button>
         <div>
           <h4>Numbers Added:</h4>
           <p>{questions.join(', ')}</p>
