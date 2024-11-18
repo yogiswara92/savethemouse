@@ -17,17 +17,17 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
-      <h1 style={{ textAlign: 'center', color: '#000000' }}>
-        Save The Mouse!{' '}
-      </h1>
-
+    // <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
+    //   <h1 style={{ textAlign: 'center', color: '#000000' }}>
+    //     Save The Mouse!{' '}
+    //   </h1>
+    <>
       {!gameStarted ? (
         <QuestionInput onSubmitQuestions={handleQuestionsSubmit} />
       ) : (
         <GamePlay questions={questions} onRestart={handleRestart} />
       )}
-    </div>
+    </>
   );
 };
 
